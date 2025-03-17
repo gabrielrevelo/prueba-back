@@ -1,0 +1,48 @@
+# Prueba Técnica Backend - Node.js y MongoDB
+
+## Avance
+
+### 1. Configuración del Servidor
+
+- [x] Crear servidor Express en puerto 3000
+- [x] Configurar conexión MongoDB usando mongoose (DB: prueba-tecnica-conteo)
+
+### 2. Modelo de Usuario
+
+- [ ] Implementar modelo con los siguientes campos:
+  - `nombre` (String, requerido)
+  - `email` (String, único y requerido)
+  - `edad` (Number, opcional)
+  - `fecha_creacion` (Date, default: fecha actual)
+  - `direcciones` (Array de objetos, con la siguiente estructura):
+
+    ```json
+    [
+      {
+        "calle": "Av. Principal",
+        "ciudad": "Lima",
+        "pais": "Perú",
+        "codigo_postal": "15001"
+      }
+    ]
+    ```
+
+### 3. Endpoints API
+
+- [ ] **POST** `/usuarios` - Crear usuario
+- [ ] **GET** `/usuarios` - Listar usuarios
+- [ ] **GET** `/usuarios/:id` - Obtener usuario por ID
+- [ ] **PUT** `/usuarios/:id` - Actualizar usuario
+- [ ] **DELETE** `/usuarios/:id` - Eliminar usuario
+- [ ] **GET** `/usuarios/buscar?ciudad=:ciudad` - Buscar usuarios por ciudad
+
+### 4. Validaciones y Manejo de Errores
+
+- [ ] Validar emails duplicados
+- [ ] Validar campos requeridos
+- [ ] Validar estructura del array de direcciones
+
+### 5. Características Adicionales (Bonus)
+
+- [ ] Implementar paginación en GET /usuarios
+- [x] Configurar variables de entorno con dotenv
