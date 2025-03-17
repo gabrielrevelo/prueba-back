@@ -1,5 +1,9 @@
 # Prueba Técnica Backend - Node.js y MongoDB
 
+## Aclaracion
+
+Para mantener coherencia y seguir buenas prácticas, todas las variables, funciones, commits y código en general están escritos en **inglés**.  
+
 ## Avance
 
 ### 1. Configuración del Servidor
@@ -9,7 +13,7 @@
 
 ### 2. Modelo de Usuario
 
-- [ ] Implementar modelo con los siguientes campos:
+- [x] Implementar modelo con los siguientes campos:
   - `nombre` (String, requerido)
   - `email` (String, único y requerido)
   - `edad` (Number, opcional)
