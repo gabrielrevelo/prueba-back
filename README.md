@@ -55,7 +55,8 @@ npm run dev
 ### Crear Usuario:
 - **POST** `/users`
 - **Body:**
-```json
+```typescript
+
 {
   "name": "Juan Pérez",
   "email": "juan@ejemplo.com",
@@ -98,7 +99,7 @@ npm run dev
 ## Formato de Respuestas
 
 ### Respuesta Exitosa
-```json
+```typescript
 {
   "success": true,
   "message": "Success message",
@@ -115,7 +116,7 @@ npm run dev
 ```
 
 ### Respuesta de Error
-```json
+```typescript
 {
   "success": false,
   "error": "Error message"
