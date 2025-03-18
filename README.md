@@ -1,53 +1,154 @@
 # Prueba Técnica Backend - Node.js y MongoDB
 
-## Aclaracion
+## Aclaraciones Técnicas
 
-- Para mantener coherencia y seguir buenas prácticas, todas las variables, funciones, rutas, atributos, commits y código en general están escritos en **inglés**.  
-- Para el borrado, se uso un borrado logico, ya que en la mayoria de los casos, es mejor tener un borrado logico, que un borrado fisico
+- El código, propiedades, rutas, ..., están escritos en inglés siguiendo las mejores prácticas de desarrollo, esto depende del proyecto y del equipo de desarrollo.
+- Se implementa borrado lógico en lugar de físico para mantener la integridad de los datos
+- La API utiliza TypeScript para mejor tipado y mantenibilidad
 
-## Avance
+## Configuración del Proyecto
 
-### 1. Configuración del Servidor
+### Prerrequisitos
+- Node.js 
+- MongoDB
+- npm
 
-- [x] Crear servidor Express en puerto 3000
-- [x] Configurar conexión MongoDB usando mongoose (DB: prueba-tecnica-conteo)
+### Variables de Entorno
+Crear un archivo `.env` en la raíz del proyecto:
+```env
+PORT=3000
+MONGODB_URI=mongodb://localhost:27017/prueba-tecnica-conteo
+```
 
-### 2. Modelo de Usuario
+### Instalación y ejecución
+```bash
+# Instalar dependencias
+npm install
 
-- [x] Implementar modelo con los siguientes campos:
-  - `nombre` (String, requerido)
-  - `email` (String, único y requerido)
-  - `edad` (Number, opcional)
-  - `fecha_creacion` (Date, default: fecha actual)
-  - `direcciones` (Array de objetos, con la siguiente estructura):
+# Iniciar en modo desarrollo
+npm run dev
+```
 
-    ```json
-    [
-      {
-        "calle": "Av. Principal",
-        "ciudad": "Lima",
-        "pais": "Perú",
-        "codigo_postal": "15001"
-      }
-    ]
-    ```
+## Estructura de Datos
 
-### 3. Endpoints API
+### Modelo de Usuario
+```typescript
+{
+  name: string;                   // requerido
+  email: string;                  // requerido, único
+  age?: number;                   // opcional
+  created_at: Date;               // automático, fecha de creación
+  deleted_at: Date;               // para borrado lógico
+  addresses: [                    // array de direcciones
+    {
+      street: string;             // requerido
+      city: string;               // requerido
+      country: string;            // requerido
+      postal_code: string;        // requerido
+    }
+  ]
+}
+```
 
-- [x] **POST** `/usuarios` - Crear usuario
-- [x] **GET** `/usuarios` - Listar usuarios
-- [x] **GET** `/usuarios/:id` - Obtener usuario por ID
-- [x] **PUT** `/usuarios/:id` - Actualizar usuario
-- [x] **DELETE** `/usuarios/:id` - Eliminar usuario
-- [x] **GET** `/usuarios/buscar?ciudad=:ciudad` - Buscar usuarios por ciudad
+## Endpoints API
 
-### 4. Validaciones y Manejo de Errores
+### Crear Usuario:
+- **POST** `/users`
+- **Body:**
+```json
+{
+  "name": "Juan Pérez",
+  "email": "juan@ejemplo.com",
+  "age": 30,
+  "addresses": [
+    {
+      "street": "Av. Principal",
+      "city": "Lima",
+      "country": "Perú",
+      "postal_code": "15001"
+    },
+    ...
+  ]
+}
+```
 
-- [x] Validar emails duplicados
-- [x] Validar campos requeridos
-- [x] Validar estructura del array de direcciones
+### Listar Usuarios:
+- **GET** `/users`
+- **Parámetros Query:** (Si se pasa alguno de estos parámetros, se activa la paginación)
+  - `page`: número de página (**Opcional**, si no se especifica es 1)
+  - `limit`: resultados por página (**Opcional**, si no se especifica es 10)
 
-### 5. Características Adicionales (Bonus)
+### Obtener Usuario por ID:
+- **GET** `/users/:id`
 
-- [x] Implementar paginación en GET /usuarios
-- [x] Configurar variables de entorno con dotenv
+### Actualizar Usuario:
+- **PUT** `/users/:id`
+- **Body:** Similar al de creación (campos opcionales)
+
+### Eliminar Usuario:
+- **DELETE** `/users/:id`
+
+### Buscar Usuarios por Ciudad:
+- **GET** `/users/search`
+- **Parámetros Query:** (Si se pasa alguno de estos parámetros, se activa la paginación)
+  - `city`: nombre de la ciudad (**Requerido**) 
+  - `page`: número de página (**Opcional**, si no se especifica es 1)
+  - `limit`: resultados por página (**Opcional**, si no se especifica es 10)
+
+## Formato de Respuestas
+
+### Respuesta Exitosa
+```json
+{
+  "success": true,
+  "message": "Success message",
+  "data": {},                     // datos solicitados
+  "pagination": {                 // endpoints paginados (opcional)
+    "total": 100,                 // total de resultados
+    "page": 1,                    // página actual
+    "limit": 10,                  // resultados por página
+    "pages": 10,                  // total de páginas
+    "hasNextPage": true,          // si hay página siguiente
+    "hasPrevPage": false          // si hay página anterior
+  }
+}
+```
+
+### Respuesta de Error
+```json
+{
+  "success": false,
+  "error": "Error message"
+}
+```
+
+## Códigos de Estado
+
+- `200`: Operación exitosa
+- `201`: Recurso creado exitosamente
+- `400`: Error de validación o solicitud incorrecta
+- `404`: Recurso no encontrado
+- `409`: Conflicto (ej: email duplicado)
+- `500`: Error interno del servidor
+
+## Validaciones
+
+- Email único y formato válido
+- Campos requeridos de usuario
+- Estructura correcta del array de direcciones
+- Formato válido de ID (MongoDB ObjectId)
+
+## Características Adicionales
+
+- Paginación implementada en endpoints de listado
+- Variables de entorno configuradas con dotenv
+- Manejo de errores centralizado
+- TypeScript para mejor tipado
+- Borrado lógico para mantener histórico
+
+## Notas de Desarrollo
+
+- Implementa arquitectura en capas (controladores, servicios, modelos)
+- Utiliza express-validator para validaciones
+- Incluye manejo de errores personalizado
+- Documentación inline en el código
