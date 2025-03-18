@@ -34,7 +34,7 @@ Para mantener coherencia y seguir buenas prácticas, todas las variables, funcio
 ### 3. Endpoints API
 
 - [x] **POST** `/usuarios` - Crear usuario
-- [ ] **GET** `/usuarios` - Listar usuarios
+- [x] **GET** `/usuarios` - Listar usuarios
 - [ ] **GET** `/usuarios/:id` - Obtener usuario por ID
 - [ ] **PUT** `/usuarios/:id` - Actualizar usuario
 - [ ] **DELETE** `/usuarios/:id` - Eliminar usuario
