@@ -1,3 +1,5 @@
+import { PaginationInfo } from "./response";
+
 export interface IAddress {
   street: string;
   city: string;
@@ -22,4 +24,10 @@ export interface IUserQuery {
   page?: number;
   limit?: number;
   city?: string;
+}
+
+export interface IUserResult {
+  user?: IUser;
+  users?: IUser[];
+  pagination?: PaginationInfo;
 }

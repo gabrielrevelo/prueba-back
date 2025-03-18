@@ -11,6 +11,7 @@ export class UserController {
   ): Promise<void> {
     try {
       const user = await UserService.create(req.body);
+
       ResponseHandler.success(res, 201, 'User created successfully', user);
     } catch (error) {
       next(error);
@@ -24,8 +25,8 @@ export class UserController {
   ): Promise<void> {
     try {
       const query: IUserQuery = {
-        page: parseInt(req.query.page as string) || 1,
-        limit: parseInt(req.query.limit as string) || 10,
+        page: parseInt(req.query.page as string) || undefined,
+        limit: parseInt(req.query.limit as string) || undefined,
       };
 
       const { users, pagination } = await UserService.findAll(query);
@@ -47,11 +48,13 @@ export class UserController {
     next: NextFunction
   ): Promise<void> {
     try {
-      const user = await UserService.findById(req.params.id);
+      const { user } = await UserService.findById(req.params.id);
+
       if (!user) {
         ResponseHandler.error(res, 404, 'User not found');
         return;
       }
+
       ResponseHandler.success(res, 200, 'User retrieved successfully', user);
     } catch (error) {
       next(error);
@@ -64,11 +67,13 @@ export class UserController {
     next: NextFunction
   ): Promise<void> {
     try {
-      const user = await UserService.update(req.params.id, req.body);
+      const { user } = await UserService.update(req.params.id, req.body);
+
       if (!user) {
         ResponseHandler.error(res, 404, 'User not found');
         return;
       }
+
       ResponseHandler.success(res, 200, 'User updated successfully', user);
     } catch (error) {
       next(error);
@@ -81,11 +86,13 @@ export class UserController {
     next: NextFunction
   ): Promise<void> {
     try {
-      const user = await UserService.delete(req.params.id);
+      const { user } = await UserService.delete(req.params.id);
+
       if (!user) {
         ResponseHandler.error(res, 404, 'User not found');
         return;
       }
+      
       ResponseHandler.success(res, 200, 'User deleted successfully');
     } catch (error) {
       next(error);
@@ -100,8 +107,8 @@ export class UserController {
     try {
       const query: IUserQuery = {
         city: req.query.city as string,
-        page: parseInt(req.query.page as string) || 1,
-        limit: parseInt(req.query.limit as string) || 10,
+        page: parseInt(req.query.page as string) || undefined,
+        limit: parseInt(req.query.limit as string) || undefined,
       };
 
       if (!query.city) {
