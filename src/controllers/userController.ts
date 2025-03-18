@@ -48,7 +48,36 @@ export const getUserById = async (
 
     ResponseHandler.success(res, 200, "User retrieved successfully", user);
   } catch (error: any) {
-    if (error.name === 2) {
+    if (error.name === "CastError") {
+      ResponseHandler.error(res, 400, "Invalid user ID format");
+      return;
+    }
+    ResponseHandler.error(res, 400, error.message);
+  }
+};
+
+export const updateUser = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const user = await User.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true,
+    });
+
+    if (!user) {
+      ResponseHandler.error(res, 404, "User not found");
+      return;
+    }
+
+    ResponseHandler.success(res, 200, "User updated successfully", user);
+  } catch (error: any) {
+    if (error.code === 11000) {
+      ResponseHandler.error(res, 400, "Email already exists");
+      return;
+    }
+    if (error.name === "CastError") {
       ResponseHandler.error(res, 400, "Invalid user ID format");
       return;
     }
