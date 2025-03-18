@@ -2,7 +2,7 @@
 
 ## Aclaraciones Técnicas
 
-- El código, propiedades, rutas, ..., están escritos en inglés siguiendo las mejores prácticas de desarrollo, esto depende del proyecto y del equipo de desarrollo.
+- El código, rutas, colecciones, campos, ..., están escritos en inglés siguiendo las mejores prácticas de desarrollo, esto depende del proyecto y del equipo de desarrollo.
 - Se implementa borrado lógico en lugar de físico para mantener la integridad de los datos
 - La API utiliza TypeScript para mejor tipado y mantenibilidad
 
