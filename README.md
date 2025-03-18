@@ -24,11 +24,50 @@ MONGODB_URI=mongodb://localhost:27017/prueba-tecnica-conteo
 
 ### Instalación y ejecución para probar la API
 ```bash
+# Clonar repositorio
+git clone https://github.com/gabrielrevelo/prueba-back.git
+
+# Ingresar al directorio
+cd prueba-back
+
 # Instalar dependencias
 npm install
 
 # Iniciar en modo desarrollo
 npm run dev
+```
+
+## Estructura del Proyecto
+
+```bash
+.
+├── src/
+│   ├── config/
+│   │   └── database.ts           # Configuración de MongoDB
+│   │   └── userRoutes.ts         # Rutas de la API para usuarios
+│   ├── controllers/
+│   │   ├── docsController.ts     # Controlador para la documentación
+│   │   └── userController.ts     # Controlador para usuarios
+│   ├── middleware/
+│   │   ├── errorHandler.ts       # Manejador global de errores
+│   │   └── userValidation.ts     # Validaciones para usuarios
+│   ├── models/
+│   │   └── User.ts               # Modelo de MongoDB para usuarios
+│   ├── routes/
+│   │   └── userRoutes.ts         # Rutas de la API para usuarios
+│   ├── services/
+│   │   └── userService.ts        # Lógica de negocio para usuarios
+│   ├── types/
+│   │   ├── user.ts               # Interfaces para usuario
+│   │   └── response.ts           # Interfaces para respuestas API
+│   ├── utils/
+│   │   └── responseHandler.ts    # Utilidad para formatear respuestas
+│   └── app.ts                    # Punto de entrada de la aplicación
+├── .env                          # Variables de entorno
+├── .gitignore                    # Archivos ignorados por git
+├── package.json                  # Dependencias y scripts
+├── tsconfig.json                 # Configuración de TypeScript
+└── README.md                     # Documentación del proyecto
 ```
 
 ## Estructura de Datos
