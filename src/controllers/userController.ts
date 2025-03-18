@@ -33,3 +33,25 @@ export const getUsers = async (req: Request, res: Response): Promise<void> => {
     ResponseHandler.error(res, 400, error.message);
   }
 };
+
+export const getUserById = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const user = await User.findById(req.params.id);
+
+    if (!user) {
+      ResponseHandler.error(res, 404, "User not found");
+      return;
+    }
+
+    ResponseHandler.success(res, 200, "User retrieved successfully", user);
+  } catch (error: any) {
+    if (error.name === 2) {
+      ResponseHandler.error(res, 400, "Invalid user ID format");
+      return;
+    }
+    ResponseHandler.error(res, 400, error.message);
+  }
+};

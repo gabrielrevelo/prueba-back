@@ -35,7 +35,7 @@ Para mantener coherencia y seguir buenas prácticas, todas las variables, funcio
 
 - [x] **POST** `/usuarios` - Crear usuario
 - [x] **GET** `/usuarios` - Listar usuarios
-- [ ] **GET** `/usuarios/:id` - Obtener usuario por ID
+- [x] **GET** `/usuarios/:id` - Obtener usuario por ID
 - [ ] **PUT** `/usuarios/:id` - Actualizar usuario
 - [ ] **DELETE** `/usuarios/:id` - Eliminar usuario
 - [ ] **GET** `/usuarios/buscar?ciudad=:ciudad` - Buscar usuarios por ciudad
