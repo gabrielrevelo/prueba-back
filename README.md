@@ -2,7 +2,7 @@
 
 ## Aclaracion
 
-Para mantener coherencia y seguir buenas prácticas, todas las variables, funciones, commits y código en general están escritos en **inglés**.  
+Para mantener coherencia y seguir buenas prácticas, todas las variables, funciones, rutas, atributos, commits y código en general están escritos en **inglés**.  
 
 ## Avance
 
@@ -33,7 +33,7 @@ Para mantener coherencia y seguir buenas prácticas, todas las variables, funcio
 
 ### 3. Endpoints API
 
-- [ ] **POST** `/usuarios` - Crear usuario
+- [x] **POST** `/usuarios` - Crear usuario
 - [ ] **GET** `/usuarios` - Listar usuarios
 - [ ] **GET** `/usuarios/:id` - Obtener usuario por ID
 - [ ] **PUT** `/usuarios/:id` - Actualizar usuario
