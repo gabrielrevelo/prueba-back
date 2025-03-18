@@ -12,6 +12,8 @@
 - Node.js 
 - MongoDB
 - npm
+  
+Antes de iniciar el proyecto, asegúrate de tener MongoDB en ejecución y crear la base de datos.
 
 ### Variables de Entorno
 Crear un archivo `.env` en la raíz del proyecto:
@@ -20,7 +22,7 @@ PORT=3000
 MONGODB_URI=mongodb://localhost:27017/prueba-tecnica-conteo
 ```
 
-### Instalación y ejecución
+### Instalación y ejecución para probar la API
 ```bash
 # Instalar dependencias
 npm install
