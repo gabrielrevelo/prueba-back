@@ -7,39 +7,30 @@ export const validateUserCreation: ValidationChain[] = [
     .withMessage('Name is required')
     .isString()
     .withMessage('Name must be a string'),
-    
+
   body('email')
     .trim()
     .notEmpty()
     .withMessage('Email is required')
     .isEmail()
     .withMessage('Email must be a valid format'),
-    
-  body('age')
-    .optional()
-    .isInt()
-    .withMessage('Age must be an integer'),
-    
+
+  body('age').optional().isInt().withMessage('Age must be an integer'),
+
   body('addresses')
     .optional()
     .isArray()
     .withMessage('Addresses must be an array'),
-    
-  body('addresses.*.street')
-    .notEmpty()
-    .withMessage('Street is required'),
-    
-  body('addresses.*.city')
-    .notEmpty()
-    .withMessage('City is required'),
-    
-  body('addresses.*.country')
-    .notEmpty()
-    .withMessage('Country is required'),
-    
+
+  body('addresses.*.street').notEmpty().withMessage('Street is required'),
+
+  body('addresses.*.city').notEmpty().withMessage('City is required'),
+
+  body('addresses.*.country').notEmpty().withMessage('Country is required'),
+
   body('addresses.*.postal_code')
     .notEmpty()
-    .withMessage('Postal code is required')
+    .withMessage('Postal code is required'),
 ];
 
 export const validateUserUpdate: ValidationChain[] = [
@@ -51,7 +42,7 @@ export const validateUserUpdate: ValidationChain[] = [
     .withMessage('Name is required')
     .isString()
     .withMessage('Name must be a string'),
-    
+
   body('email')
     .optional()
     .trim()
@@ -59,46 +50,41 @@ export const validateUserUpdate: ValidationChain[] = [
     .withMessage('Email is required')
     .isEmail()
     .withMessage('Email must be a valid format'),
-    
-  body('age')
-    .optional()
-    .isInt()
-    .withMessage('Age must be an integer'),
-    
+
+  body('age').optional().isInt().withMessage('Age must be an integer'),
+
   body('addresses')
     .optional()
     .isArray()
     .withMessage('Addresses must be an array'),
-    
+
   body('addresses.*.street')
     .optional()
     .notEmpty()
     .withMessage('Street is required'),
-    
+
   body('addresses.*.city')
     .optional()
     .notEmpty()
     .withMessage('City is required'),
-    
+
   body('addresses.*.country')
     .optional()
     .notEmpty()
     .withMessage('Country is required'),
-    
+
   body('addresses.*.postal_code')
     .optional()
     .notEmpty()
-    .withMessage('Postal code is required')
+    .withMessage('Postal code is required'),
 ];
 
 export const validateUserId: ValidationChain[] = [
-  param('id').isMongoId().withMessage('Invalid user ID format')
+  param('id').isMongoId().withMessage('Invalid user ID format'),
 ];
 
 export const validateCitySearch: ValidationChain[] = [
-  query('city')
-    .notEmpty()
-    .withMessage('City parameter is required')
+  query('city').notEmpty().withMessage('City parameter is required'),
 ];
 
 export const validatePagination: ValidationChain[] = [
@@ -109,5 +95,5 @@ export const validatePagination: ValidationChain[] = [
   body('limit')
     .optional()
     .isInt({ min: 1, max: 100 })
-    .withMessage('Limit must be between 1 and 100')
-]; 
+    .withMessage('Limit must be between 1 and 100'),
+];

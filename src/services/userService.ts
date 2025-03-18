@@ -1,10 +1,10 @@
-import User from "../models/User";
-import { IUser, IUserCreate, IUserUpdate, IUserQuery } from "../types/user";
+import User from '../models/User';
+import { IUser, IUserCreate, IUserUpdate, IUserQuery } from '../types/user';
 
 export class UserService {
   static async create(userData: IUserCreate): Promise<IUser> {
     const user = new User(userData);
-    return await user.save() as IUser;
+    return (await user.save()) as IUser;
   }
 
   static async findAll(query: IUserQuery) {
@@ -12,10 +12,8 @@ export class UserService {
     const skip = (page - 1) * limit;
 
     const [users, total] = await Promise.all([
-      User.find({ deleted_at: null })
-        .skip(skip)
-        .limit(limit),
-      User.countDocuments({ deleted_at: null })
+      User.find({ deleted_at: null }).skip(skip).limit(limit),
+      User.countDocuments({ deleted_at: null }),
     ]);
 
     return {
@@ -26,8 +24,8 @@ export class UserService {
         limit,
         pages: Math.ceil(total / limit),
         hasNextPage: page < Math.ceil(total / limit),
-        hasPrevPage: page > 1
-      }
+        hasPrevPage: page > 1,
+      },
     };
   }
 
@@ -38,7 +36,10 @@ export class UserService {
     });
   }
 
-  static async update(id: string, userData: IUserUpdate): Promise<IUser | null> {
+  static async update(
+    id: string,
+    userData: IUserUpdate
+  ): Promise<IUser | null> {
     return await User.findOneAndUpdate(
       { _id: id, deleted_at: null },
       userData,
@@ -61,14 +62,14 @@ export class UserService {
     const [users, total] = await Promise.all([
       User.find({
         deleted_at: null,
-        "addresses.city": { $regex: new RegExp(city!, "i") },
+        'addresses.city': { $regex: new RegExp(city!, 'i') },
       })
         .skip(skip)
         .limit(limit),
       User.countDocuments({
         deleted_at: null,
-        "addresses.city": { $regex: new RegExp(city!, "i") },
-      })
+        'addresses.city': { $regex: new RegExp(city!, 'i') },
+      }),
     ]);
 
     return {
@@ -79,8 +80,8 @@ export class UserService {
         limit,
         pages: Math.ceil(total / limit),
         hasNextPage: page < Math.ceil(total / limit),
-        hasPrevPage: page > 1
-      }
+        hasPrevPage: page > 1,
+      },
     };
   }
-} 
+}

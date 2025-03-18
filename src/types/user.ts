@@ -22,4 +22,4 @@ export interface IUserQuery {
   page?: number;
   limit?: number;
   city?: string;
-} 
+}

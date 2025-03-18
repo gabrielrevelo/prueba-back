@@ -12,8 +12,11 @@ export const validateRequest = (
     return ResponseHandler.error(
       res,
       400,
-      errors.array().map(err => err.msg).join(', ')
+      errors
+        .array()
+        .map((err) => err.msg)
+        .join(', ')
     );
   }
   next();
-}; 
+};

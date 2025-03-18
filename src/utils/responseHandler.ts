@@ -1,5 +1,5 @@
-import { Response } from "express";
-import { ApiResponse, PaginationInfo } from "../types/response";
+import { Response } from 'express';
+import { ApiResponse, PaginationInfo } from '../types/response';
 
 export class ResponseHandler {
   static success<T>(
@@ -13,7 +13,7 @@ export class ResponseHandler {
       success: true,
       message,
       data,
-      pagination
+      pagination,
     };
     res.status(statusCode).json(response);
   }

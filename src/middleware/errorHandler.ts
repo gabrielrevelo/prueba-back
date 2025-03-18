@@ -8,12 +8,12 @@ export const errorHandler = (
   next: NextFunction
 ) => {
   if (error.code === 11000) {
-    return ResponseHandler.error(res, 409, "Email already exists");
-  }
-  
-  if (error.name === "CastError") {
-    return ResponseHandler.error(res, 400, "Invalid ID format");
+    return ResponseHandler.error(res, 409, 'Email already exists');
   }
 
-  ResponseHandler.error(res, 500, "Internal server error");
-}; 
+  if (error.name === 'CastError') {
+    return ResponseHandler.error(res, 400, 'Invalid ID format');
+  }
+
+  ResponseHandler.error(res, 500, 'Internal server error');
+};
