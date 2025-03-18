@@ -33,9 +33,11 @@ cd prueba-back
 # Instalar dependencias
 npm install
 
-# Iniciar en modo desarrollo
+# Iniciar API para comenzar a probar
 npm run dev
 ```
+
+Despues de esto ya se puede probar la API con Postman o cualquier cliente HTTP.
 
 ## Estructura del Proyecto
 
