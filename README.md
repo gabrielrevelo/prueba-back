@@ -43,9 +43,9 @@
 
 ### 4. Validaciones y Manejo de Errores
 
-- [ ] Validar emails duplicados
-- [ ] Validar campos requeridos
-- [ ] Validar estructura del array de direcciones
+- [x] Validar emails duplicados
+- [x] Validar campos requeridos
+- [x] Validar estructura del array de direcciones
 
 ### 5. Características Adicionales (Bonus)
 
