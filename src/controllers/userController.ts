@@ -21,7 +21,7 @@ export const createUser = async (
 
 export const getUsers = async (req: Request, res: Response): Promise<void> => {
   try {
-    const users = await User.find();
+    const users = await User.find({ deleted_at: null });
     ResponseHandler.success(
       res,
       200,
@@ -39,7 +39,10 @@ export const getUserById = async (
   res: Response
 ): Promise<void> => {
   try {
-    const user = await User.findById(req.params.id);
+    const user = await User.findOne({
+      _id: req.params.id,
+      deleted_at: null,
+    });
 
     if (!user) {
       ResponseHandler.error(res, 404, "User not found");
@@ -61,10 +64,14 @@ export const updateUser = async (
   res: Response
 ): Promise<void> => {
   try {
-    const user = await User.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-      runValidators: true,
-    });
+    const user = await User.findOneAndUpdate(
+      {
+        _id: req.params.id,
+        deleted_at: null,
+      },
+      req.body,
+      { new: true, runValidators: true }
+    );
 
     if (!user) {
       ResponseHandler.error(res, 404, "User not found");
@@ -77,6 +84,35 @@ export const updateUser = async (
       ResponseHandler.error(res, 400, "Email already exists");
       return;
     }
+    if (error.name === "CastError") {
+      ResponseHandler.error(res, 400, "Invalid user ID format");
+      return;
+    }
+    ResponseHandler.error(res, 400, error.message);
+  }
+};
+
+export const deleteUser = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const user = await User.findOneAndUpdate(
+      {
+        _id: req.params.id,
+        deleted_at: null,
+      },
+      { deleted_at: new Date() },
+      { new: true }
+    );
+
+    if (!user) {
+      ResponseHandler.error(res, 404, "User not found");
+      return;
+    }
+
+    ResponseHandler.success(res, 200, "User deleted successfully");
+  } catch (error: any) {
     if (error.name === "CastError") {
       ResponseHandler.error(res, 400, "Invalid user ID format");
       return;

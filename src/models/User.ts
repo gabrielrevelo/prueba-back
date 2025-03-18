@@ -1,47 +1,51 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const addressSchema = new mongoose.Schema({
   street: {
     type: String,
-    required: true
+    required: true,
   },
   city: {
     type: String,
-    required: true
+    required: true,
   },
   country: {
     type: String,
-    required: true
+    required: true,
   },
   postal_code: {
     type: String,
-    required: true
-  }
+    required: true,
+  },
 });
 
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: [true, 'Name is required']
+    required: [true, "Name is required"],
   },
   email: {
     type: String,
-    required: [true, 'Email is required'],
+    required: [true, "Email is required"],
     unique: true,
     trim: true,
-    lowercase: true
+    lowercase: true,
   },
   age: {
     type: Number,
-    required: false
+    required: false,
   },
   created_at: {
     type: Date,
-    default: Date.now
+    default: Date.now,
   },
-  addresses: [addressSchema]
+  deleted_at: {
+    type: Date,
+    default: null,
+  },
+  addresses: [addressSchema],
 });
 
-const User = mongoose.model('User', userSchema);
+const User = mongoose.model("User", userSchema);
 
-export default User; 
+export default User;

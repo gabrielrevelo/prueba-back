@@ -2,7 +2,8 @@
 
 ## Aclaracion
 
-Para mantener coherencia y seguir buenas prácticas, todas las variables, funciones, rutas, atributos, commits y código en general están escritos en **inglés**.  
+- Para mantener coherencia y seguir buenas prácticas, todas las variables, funciones, rutas, atributos, commits y código en general están escritos en **inglés**.  
+- Para el borrado, se uso un borrado logico, ya que en la mayoria de los casos, es mejor tener un borrado logico, que un borrado fisico
 
 ## Avance
 
@@ -37,7 +38,7 @@ Para mantener coherencia y seguir buenas prácticas, todas las variables, funcio
 - [x] **GET** `/usuarios` - Listar usuarios
 - [x] **GET** `/usuarios/:id` - Obtener usuario por ID
 - [x] **PUT** `/usuarios/:id` - Actualizar usuario
-- [ ] **DELETE** `/usuarios/:id` - Eliminar usuario
+- [x] **DELETE** `/usuarios/:id` - Eliminar usuario
 - [ ] **GET** `/usuarios/buscar?ciudad=:ciudad` - Buscar usuarios por ciudad
 
 ### 4. Validaciones y Manejo de Errores

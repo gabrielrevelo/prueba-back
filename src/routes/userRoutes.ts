@@ -1,6 +1,7 @@
 import express from "express";
 import {
   createUser,
+  deleteUser,
   getUserById,
   getUsers,
   updateUser,
@@ -22,6 +23,10 @@ router.get("/:id", async (req, res) => {
 
 router.put("/:id", async (req, res) => {
   await updateUser(req, res);
+});
+
+router.delete("/:id", async (req, res) => {
+  await deleteUser(req, res);
 });
 
 export default router;
