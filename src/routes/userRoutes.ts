@@ -5,6 +5,7 @@ import {
   getUserById,
   getUsers,
   updateUser,
+  searchUsersByCity
 } from "../controllers/userController";
 
 const router = express.Router();
@@ -15,6 +16,10 @@ router.post("/", async (req, res) => {
 
 router.get("/", async (req, res) => {
   await getUsers(req, res);
+});
+
+router.get("/search", async (req, res) => {
+  await searchUsersByCity(req, res);
 });
 
 router.get("/:id", async (req, res) => {

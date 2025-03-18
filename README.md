@@ -39,7 +39,7 @@
 - [x] **GET** `/usuarios/:id` - Obtener usuario por ID
 - [x] **PUT** `/usuarios/:id` - Actualizar usuario
 - [x] **DELETE** `/usuarios/:id` - Eliminar usuario
-- [ ] **GET** `/usuarios/buscar?ciudad=:ciudad` - Buscar usuarios por ciudad
+- [x] **GET** `/usuarios/buscar?ciudad=:ciudad` - Buscar usuarios por ciudad
 
 ### 4. Validaciones y Manejo de Errores
 

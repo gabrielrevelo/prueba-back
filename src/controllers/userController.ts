@@ -120,3 +120,32 @@ export const deleteUser = async (
     ResponseHandler.error(res, 400, error.message);
   }
 };
+
+export const searchUsersByCity = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const { city } = req.query;
+
+    if (!city || typeof city !== "string") {
+      ResponseHandler.error(res, 400, "The 'city' parameter is required");
+      return;
+    }
+
+    const users = await User.find({
+      deleted_at: null,
+      "addresses.city": { $regex: new RegExp(city, "i") },
+    });
+
+    ResponseHandler.success(
+      res,
+      200,
+      `Users found in the city: ${city}`,
+      users,
+      users.length
+    );
+  } catch (error: any) {
+    ResponseHandler.error(res, 400, error.message);
+  }
+};
