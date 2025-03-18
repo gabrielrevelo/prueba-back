@@ -49,5 +49,5 @@
 
 ### 5. Características Adicionales (Bonus)
 
-- [ ] Implementar paginación en GET /usuarios
+- [x] Implementar paginación en GET /usuarios
 - [x] Configurar variables de entorno con dotenv

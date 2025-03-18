@@ -21,13 +21,32 @@ export const createUser = async (
 
 export const getUsers = async (req: Request, res: Response): Promise<void> => {
   try {
-    const users = await User.find({ deleted_at: null });
+    const page = parseInt(req.query.page as string) || 1;
+    const limit = parseInt(req.query.limit as string) || 10;
+    const skip = (page - 1) * limit;
+
+    const [users, total] = await Promise.all([
+      User.find({ deleted_at: null })
+        .skip(skip)
+        .limit(limit),
+      User.countDocuments({ deleted_at: null })
+    ]);
+
+    const totalPages = Math.ceil(total / limit);
+
     ResponseHandler.success(
       res,
       200,
       "Users retrieved successfully",
       users,
-      users.length
+      {
+        total,
+        page,
+        limit,
+        pages: totalPages,
+        hasNextPage: page < totalPages,
+        hasPrevPage: page > 1
+      }
     );
   } catch (error: any) {
     ResponseHandler.error(res, 400, error.message);
@@ -127,23 +146,43 @@ export const searchUsersByCity = async (
 ): Promise<void> => {
   try {
     const { city } = req.query;
+    const page = parseInt(req.query.page as string) || 1;
+    const limit = parseInt(req.query.limit as string) || 10;
+    const skip = (page - 1) * limit;
 
     if (!city || typeof city !== "string") {
       ResponseHandler.error(res, 400, "The 'city' parameter is required");
       return;
     }
 
-    const users = await User.find({
-      deleted_at: null,
-      "addresses.city": { $regex: new RegExp(city, "i") },
-    });
+    const [users, total] = await Promise.all([
+      User.find({
+        deleted_at: null,
+        "addresses.city": { $regex: new RegExp(city, "i") },
+      })
+        .skip(skip)
+        .limit(limit),
+      User.countDocuments({
+        deleted_at: null,
+        "addresses.city": { $regex: new RegExp(city, "i") },
+      })
+    ]);
+
+    const totalPages = Math.ceil(total / limit);
 
     ResponseHandler.success(
       res,
       200,
       `Users found in the city: ${city}`,
       users,
-      users.length
+      {
+        total,
+        page,
+        limit,
+        pages: totalPages,
+        hasNextPage: page < totalPages,
+        hasPrevPage: page > 1
+      }
     );
   } catch (error: any) {
     ResponseHandler.error(res, 400, error.message);

@@ -1,4 +1,4 @@
-import { body, param, ValidationChain } from 'express-validator';
+import { body, param, ValidationChain, query } from 'express-validator';
 
 export const validateUserCreation: ValidationChain[] = [
   body('name')
@@ -96,5 +96,18 @@ export const validateUserId: ValidationChain[] = [
 ];
 
 export const validateCitySearch: ValidationChain[] = [
-  param('city').notEmpty().withMessage('City parameter is required')
+  query('city')
+    .notEmpty()
+    .withMessage('City parameter is required')
+];
+
+export const validatePagination: ValidationChain[] = [
+  body('page')
+    .optional()
+    .isInt({ min: 1 })
+    .withMessage('Page must be a positive integer'),
+  body('limit')
+    .optional()
+    .isInt({ min: 1, max: 100 })
+    .withMessage('Limit must be between 1 and 100')
 ]; 

@@ -1,19 +1,19 @@
 import { Response } from "express";
-import { ApiResponse } from "../types/response";
+import { ApiResponse, PaginationInfo } from "../types/response";
 
 export class ResponseHandler {
   static success<T>(
     res: Response,
     statusCode: number,
-    message?: string,
+    message: string,
     data?: T,
-    count?: number,
+    pagination?: PaginationInfo
   ): void {
     const response: ApiResponse<T> = {
       success: true,
       message,
       data,
-      count,
+      pagination
     };
     res.status(statusCode).json(response);
   }
